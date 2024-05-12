@@ -1,17 +1,22 @@
 const StudentModel = require('../model/student')
-
+const path=require('path')
 
 //**create data */
 const createStudent = async (req, res) => {
 
+    console.log('ll',req.file);
     try {
         //console.log('sddd',req.body);
-        const { name, city, phone } = req.body
+        const { name, city, phone,photo } = req.body
 
         const studentdata = new StudentModel({
-            name, city, phone
+            name, city, phone,photo
 
         })
+
+        if(req.file){
+            studentdata.photo=req.file.path
+        }
         const sdata = await studentdata.save()
       return  res.status(200).json({
             success: true,

@@ -20,6 +20,9 @@ app.set('views','views')
  app.use(body_parser.urlencoded({extended:true}))
  app.use(body_parser.json())
 app.use(cors())
+
+app.use('/uploads',express.static('uploads'))
+
 //create static folder
 app.use(express.static(path.join(__dirname,'public')))
 

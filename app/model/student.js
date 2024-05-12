@@ -12,9 +12,15 @@ const studentSchema=mongoose.Schema({
     phone:{
         type:String,
         required:[true,'name filed is required']
+    },
+    photo:{
+        type:String,
+        required:true
     }
 
-})
+},
+{timestamps: true}
+)
 
 const StudentModel=mongoose.model('student',studentSchema)
 

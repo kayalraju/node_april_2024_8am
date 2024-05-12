@@ -1,5 +1,5 @@
 const StudentModel=require('../model/student')
-
+const path=require('path')
 
 
 
@@ -60,6 +60,10 @@ const createtudent=async(req,res)=>{
             name, city, phone
 
         })
+        
+        if(req.file){
+            studentdata.photo=req.file.path
+        }
         const sdata = await studentdata.save()
         if(sdata){
             res.redirect('/')

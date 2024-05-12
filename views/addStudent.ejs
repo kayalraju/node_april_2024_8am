@@ -21,7 +21,7 @@
         <div class="container px-4 px-lg-5">
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-md-10 col-lg-8 col-xl-7">
-                    <form action="/student/create" method="post">
+                    <form action="/student/create" method="post" enctype="multipart/form-data">
                         <div class="form-group">
                           <label for="exampleInputEmail1">Name</label>
                           <input type="text" class="form-control" id="exampleInputEmail1" name="name">
@@ -34,6 +34,10 @@
                         <div class="form-group">
                           <label for="exampleInputPassword1">city</label>
                           <input type="text" class="form-control" id="exampleInputPassword1" name="city">
+                        </div>
+                        <div class="form-group">
+                          <label for="exampleInputPassword1">photo</label>
+                          <input type="file" class="form-control" id="exampleInputPassword1" name="photo">
                         </div>
                        
                         <button type="submit" class="btn btn-primary">Add student</button>

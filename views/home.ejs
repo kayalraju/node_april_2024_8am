@@ -33,6 +33,7 @@
                             <th scope="col">name</th>
                             <th scope="col">city</th>
                             <th scope="col">phone</th>
+                            <th scope="col">image</th>
                             <th colspan="2">action</th>
                           </tr>
                         </thead>
@@ -43,6 +44,7 @@
                             <td><%=student.name%></td>
                             <td><%=student.city%></td>
                             <td><%=student.phone%></td>
+                            <td><img src="<%=student.photo%>" alt="img" height="50px" width="50px"></td>
                             <td><a href="/student/edit/<%=student._id%>" class="btn btn-success">Edit</a> </td>
                             <td><a href="/student/delete/<%=student._id%>" class="btn btn-danger">Delete</a> </td>
                          
