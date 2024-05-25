@@ -1,6 +1,6 @@
 const StudentModel=require('../model/student')
 const path=require('path')
-
+const flash=require('connect-flash')
 
 
 
@@ -24,7 +24,8 @@ const HomePage=async(req,res)=>{
         const getAlldata=await StudentModel.find()
         res.render('home',{
             title:"home page",
-            data:getAlldata
+            data:getAlldata,
+            message: req.flash('message')
         })
 
     }catch(error){
@@ -66,6 +67,7 @@ const createtudent=async(req,res)=>{
         }
         const sdata = await studentdata.save()
         if(sdata){
+            req.flash('message', 'student Added Successfully')
             res.redirect('/')
         }else{
             res.redirect('/add/student')

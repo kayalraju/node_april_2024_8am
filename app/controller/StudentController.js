@@ -1,17 +1,40 @@
 const StudentModel = require('../model/student')
 const path=require('path')
-
+const slugify=require('slugify')
+const fs=require('fs')
+const { Validator } = require('node-input-validator');
 //**create data */
 const createStudent = async (req, res) => {
 
-    console.log('ll',req.file);
     try {
-        //console.log('sddd',req.body);
+        
+        const v = new Validator(req.body,
+            { 
+                name: 'required|minLength:5', 
+                city: 'required|minLength:2', 
+                phone: 'required|minLength:10' 
+            }
+          );
+         const matched=await v.check().then((val)=>val);
+         if(!matched){
+            return  res.status(404).json({
+                success: false,
+                error:v.errors
+            })
+         }
+
         const { name, city, phone,photo } = req.body
+        // if(!name || !city || !phone){
+        //     return  res.status(404).json({
+        //         success: false,
+        //         message: "all input filed is required",
+               
+        //     }) 
+        // }
 
         const studentdata = new StudentModel({
-            name, city, phone,photo
-
+            name, city, phone,photo,
+            slug: slugify(name),
         })
 
         if(req.file){
@@ -38,8 +61,9 @@ const createStudent = async (req, res) => {
 //***get all data */
 const getdata = async(req, res) => {
 
+
     try{
-        const getAlldata=await StudentModel.find()
+        const getAlldata=await StudentModel.find({},{__v:0})
 
        return res.status(200).json({
             success: true,
@@ -53,6 +77,27 @@ const getdata = async(req, res) => {
 
     }
    
+}
+
+
+//slug data
+const getslugdata=async(req,res)=>{
+    try{
+        const slug=req.params.slug
+        const getslug=await StudentModel.find({slug})
+
+       return res.status(200).json({
+            success: true,
+            message: " successfully",
+            data:getslug
+    
+        })
+
+    }catch(error){
+        console.log(error);
+
+    }
+
 }
 //****get single data */
 const editdata = async(req, res) => {
@@ -102,13 +147,14 @@ const deletedata = async(req, res) => {
     try{
         const id=req.params.id
         const updatedata=await StudentModel.findByIdAndDelete(id)
-
-       return res.status(200).json({
-            success: true,
-            message: "data delete successfully",
-          
-        })
-
+        if(updatedata){
+            fs.unlinkSync(updatedata.photo)
+            return res.status(200).json({
+                success: true,
+                message: "data delete successfully",
+              
+            })
+        }
     }catch(error){
         console.log(error);
 
@@ -121,5 +167,6 @@ module.exports = {
     getdata,
     editdata,
     upsdatedata,
-    deletedata
+    deletedata,
+    getslugdata
 }
