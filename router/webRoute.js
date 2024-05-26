@@ -1,6 +1,7 @@
 const express=require('express');
-const { createStudent, getdata, editdata, upsdatedata, deletedata, getslugdata } = require('../app/controller/StudentController');
-const uploadTure=require('../app/helper/StudentImageUpload')
+const { createStudent, getdata, editdata, upsdatedata, deletedata, getslugdata, ratelimitd } = require('../app/controller/StudentController');
+const uploadTure=require('../app/helper/StudentImageUpload');
+const { default: rateLimit } = require('express-rate-limit');
 const StudentRouter=express.Router()
 
 
@@ -12,6 +13,10 @@ StudentRouter.get('/delete/data/:id',deletedata)
 
 //slug
 StudentRouter.get('/data/slugdata/:slug',getslugdata)
+
+
+
+StudentRouter.get('/ratelimit',ratelimitd)
 
 
 

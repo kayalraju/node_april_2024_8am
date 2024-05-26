@@ -162,11 +162,23 @@ const deletedata = async(req, res) => {
    
 }
 
+
+//ratelimit
+
+const ratelimitd=(req,res)=>{
+    return res.status(200).json({
+        success: true,
+        message: "test page",
+      
+    })
+}
+
 module.exports = {
     createStudent,
     getdata,
     editdata,
     upsdatedata,
     deletedata,
-    getslugdata
+    getslugdata,
+    ratelimitd
 }
