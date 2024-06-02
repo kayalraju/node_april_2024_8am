@@ -64,6 +64,11 @@ app.use('/api',webRoute)
 const ProductRoute=require('./router/productRoute');
 app.use(ProductRoute)
 
+
+//for auth
+
+const AuthRouter=require('./router/authRoute');
+app.use('/api',AuthRouter)
 const Port= 1234
 app.listen(Port,()=>{
     console.log(`server is running port http://localhost:${Port}`);
