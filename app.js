@@ -15,7 +15,7 @@ connectDB()
 
 
 //for express rate limit
-app.use(rateLimitMiddleware)
+//app.use(rateLimitMiddleware)
 
 app.use(session({
     secret:'secrect',

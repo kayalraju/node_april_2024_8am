@@ -120,12 +120,23 @@ const editdata = async(req, res) => {
    
 }
 
+
 //****for update data */
 const upsdatedata = async(req, res) => {
-
     try{
         const id=req.params.id
-        const updatedata=await StudentModel.findByIdAndUpdate(id,req.body,{
+        const newimage=req.file.path
+        const deleteimage=await StudentModel.findById(id)
+        //console.log('dd',deleteimage);
+        fs.unlinkSync(deleteimage.photo)
+
+        const updatedata=await StudentModel.findByIdAndUpdate(id,
+            {
+                name:req.body.name,
+                city:req.body.city,
+                phone:req.body.phone,
+                photo:newimage
+            },{
             useFindAndModify:false
         })
 
